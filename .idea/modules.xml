@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/compiler/compiler.iml" filepath="$PROJECT_DIR$/compiler/compiler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/interpreter/interpreter.iml" filepath="$PROJECT_DIR$/interpreter/interpreter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java-translator/java-translator.iml" filepath="$PROJECT_DIR$/java-translator/java-translator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/javel.iml" filepath="$PROJECT_DIR$/javel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/language/language.iml" filepath="$PROJECT_DIR$/language/language.iml" />
+    </modules>
+  </component>
+</project>
