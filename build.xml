@@ -1,0 +1,59 @@
+<project name="Javel" default="dist" basedir=".">
+    <property name="src" location="src"/>
+
+    <property name="compiler.src" location="compiler/src"/>
+    <property name="compiler.lib" location="compiler/lib/asm-debug-all-5.0.4.jar"/>
+
+    <property name="interpreter.src" location="interpreter/src"/>
+
+    <property name="translator.src" location="java-translator/src"/>
+
+    <property name="language.src" location="language/src"/>
+    <property name="language.gensrc" location="language/gen/com/github/bjansen/javel/language"/>
+    <property name="language.lib" location="language/lib/antlr-4.4-complete.jar"/>
+    <property name="language.pkg" value="com.github.bjansen.javel.language"/>
+    <property name="language.grammar" location="language/grammar/Javel.g4"/>
+
+    <property name="dist" location="dist"/>
+
+    <target name="clean">
+        <delete dir="dist"/>
+    </target>
+
+    <target name="dist" depends="build-language,build-interpreter,build-translator,build-compiler">
+        <javac classpath="${language.lib}" destdir="${dist}/classes" srcdir="${src}"/>
+    </target>
+
+    <target name="build-language" depends="generate-parser">
+        <mkdir dir="${dist}"/>
+        <mkdir dir="${dist}/classes"/>
+
+        <javac classpath="${language.lib}" destdir="${dist}/classes" srcdir="${language.gensrc}">
+            <src location="${language.gensrc}"/>
+            <src location="${language.src}"/>
+        </javac>
+    </target>
+
+    <target name="generate-parser">
+        <java classpath="${language.lib}" classname="org.antlr.v4.Tool" dir="language/grammar" fork="true">
+            <arg value="-o"/>
+            <arg value="${language.gensrc}"/>
+            <arg value="-visitor"/>
+            <arg value="-package"/>
+            <arg value="${language.pkg}"/>
+            <arg value="${language.grammar}"/>
+        </java>
+    </target>
+
+    <target name="build-interpreter">
+        <javac classpath="${language.lib}" destdir="${dist}/classes" srcdir="${interpreter.src}"/>
+    </target>
+
+    <target name="build-translator">
+        <javac classpath="${language.lib}" destdir="${dist}/classes" srcdir="${translator.src}"/>
+    </target>
+
+    <target name="build-compiler">
+        <javac classpath="${language.lib}:${compiler.lib}" destdir="${dist}/classes" srcdir="${compiler.src}"/>
+    </target>
+</project>
